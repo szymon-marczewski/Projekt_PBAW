@@ -19,7 +19,7 @@
 				<ul>
 					<li><a href="index.php">Home</a></li>
 					<li><a href="{$conf->action_root}ProductsList">Products</a></li>
-					<li><a href="{$conf->action_root}OrdersList">>Orders</a></li>
+					<li><a href="{$conf->action_root}OrdersList">Orders</a></li>
 					<li>
 						{if count($conf->roles)>0}
 						<a href="{$conf->action_root}logout" class="pure-menu-heading pure-menu-link">Logout</a>
