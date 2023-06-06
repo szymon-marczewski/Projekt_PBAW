@@ -32,6 +32,7 @@
 		</header>
 
 		<!-- Banner -->
+		{block name=top}
 		<section id="banner">
 			<h2>Welcome!</h2>
 			<p>If you are looking for the cheapest computer components on the market, you've come to the right place.
@@ -51,6 +52,8 @@
 				</header>
 				<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
 			</section>
+		</section>
+		{/block}
 
 			{block name=messages}
 
