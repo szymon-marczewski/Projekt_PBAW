@@ -90,8 +90,8 @@ class App {
                 'one' => self::$config->root_path . '/app/views',
                 'two' => self::$config->root_path . '/app/views/templates'
             ));
-            if (file_exists(self::$config->root_path . '/app/onload_smarty.php')) {
-                require_once self::$config->root_path . '/app/onload_smarty.php';
+            if (file_exists(self::$config->root_path . '/app/views/onload_smarty.php')) {
+                require_once self::$config->root_path . '/app/views/onload_smarty.php';
             }
         }
         return self::$smarty;
@@ -111,8 +111,8 @@ class App {
                 'prefix' => self::$config->db_prefix,
                 'option' => self::$config->db_option
             ]);
-            if (file_exists(self::$config->root_path . '/app/onload_db.php')) {
-                require_once self::$config->root_path . '/app/onload_db.php';
+            if (file_exists(self::$config->root_path . '/app/views/onload_db.php')) {
+                require_once self::$config->root_path . '/app/views/onload_db.php';
             }
         }
         return self::$db;
