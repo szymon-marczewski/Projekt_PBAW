@@ -7,30 +7,30 @@ use core\Utils;
 use core\ParamUtils;
 use app\forms\ProductsSearchForm;
 
-class PersonListCtrl {
+class ProductsListCtrl {
 
     private $form; //dane formularza wyszukiwania
     private $records; //rekordy pobrane z bazy danych
 
     public function __construct() {
 
-        $this->form = new ProductsSearchForm();
+        $this->form = new ProductsSearchForm(); 
     }
 
     public function validate() {
         
-        $this->form->manufacturer = ParamUtils::getFromRequest('sf_manufacturer');
+        $this->form->Manufacturer = ParamUtils::getFromRequest('sf_Manufacturer');
 
         return !App::getMessages()->isError();
     }
 
-    public function action_personList() {
+    public function action_productList() {
 
         $this->validate();
 
         $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
-        if (isset($this->form->manufacturer) && strlen($this->form->manufacturer) > 0) {
-            $search_params['manufacturer[~]'] = $this->form->manufacturer . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+        if (isset($this->form->Manufacturer) && strlen($this->form->Manufacturer) > 0) {
+            $search_params['Manufacturer[~]'] = $this->form->Manufacturer . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
         }
 
         $num_params = sizeof($search_params);
@@ -40,12 +40,13 @@ class PersonListCtrl {
             $where = &$search_params;
         }
         //dodanie frazy sortującej po nazwisku
-        $where ["ORDER"] = "manufacturer";
+        $where ["ORDER"] = "Manufacturer";
         //wykonanie zapytania
 
         try {
             $this->records = App::getDB()->select("products", [
                 "idProduct",
+                "Manufacturer",
                 "Model",
                 "Type",
                 "Price",
@@ -58,7 +59,7 @@ class PersonListCtrl {
 
         // 4. wygeneruj widok
         App::getSmarty()->assign('searchForm', $this->form); // dane formularza (wyszukiwania w tym wypadku)
-        App::getSmarty()->assign('products', $this->records);  // lista rekordów z bazy danych
+        App::getSmarty()->assign('prod', $this->records);  // lista rekordów z bazy danych
         App::getSmarty()->display('ProductsList.tpl');
     }
 
