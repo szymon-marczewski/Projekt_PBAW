@@ -21,6 +21,7 @@ class ProductsEditCtrl {
     public function validateSave() {
         //0. Pobranie parametrów z walidacją
         $this->form->idProduct = ParamUtils::getFromRequest('idProduct', true, 'Błędne wywołanie aplikacji');
+        // $this->form->Manufacturer = ParamUtils::getFromRequest('Manufacturer', true, 'Błędne wywołanie aplikacji');
         $this->form->Model = ParamUtils::getFromRequest('Model', true, 'Błędne wywołanie aplikacji');
         $this->form->Type = ParamUtils::getFromRequest('Type', true, 'Błędne wywołanie aplikacji');
         $this->form->Price = ParamUtils::getFromRequest('Price', true, 'Błędne wywołanie aplikacji');
@@ -152,7 +153,7 @@ class ProductsEditCtrl {
 
     public function generateView() {
         App::getSmarty()->assign('form', $this->form); // dane formularza dla widoku
-        App::getSmarty()->display('ProductEdit.tpl');
+        App::getSmarty()->display('ProductsEdit.tpl');
     }
 
 }
