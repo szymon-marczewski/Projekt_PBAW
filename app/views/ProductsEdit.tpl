@@ -12,19 +12,19 @@
         </div>
 		<div class="pure-control-group">
             <label for="manufacturer">manufacturer</label>
-            <input id="manufacturer" type="text" placeholder="manufacturer" name="manufacturer" value="{$form->manufacturer}">
+            <input id="manufacturer" type="text" placeholder="manufacturer" name="Manufacturer" value="{$form->Manufacturer}">
         </div>
 		<div class="pure-control-group">
             <label for="model">model</label>
-            <input id="model" type="text" placeholder="model" name="model" value="{$form->model}">
+            <input id="model" type="text" placeholder="model" name="Model" value="{$form->Model}">
         </div>
         <div class="pure-control-group">
             <label for="type">type</label>
-            <input id="type" type="text" placeholder="type" name="type" value="{$form->type}">
+            <input id="type" type="text" placeholder="type" name="Type" value="{$form->Type}">
         </div>
         <div class="pure-control-group">
             <label for="price">price</label>
-            <input id="price" type="text" placeholder="price" name="price" value="{$form->price}">
+            <input id="price" type="text" placeholder="price" name="Price" value="{$form->Price}">
         </div>
 		<div class="pure-controls">
 			<input type="submit" class="pure-button pure-button-primary" value="Save"/>
