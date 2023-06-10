@@ -34,10 +34,10 @@
             <label for="description">price</label>
             <input id="description" type="text" placeholder="description" name="Description" value="{$form->Description}">
         </div>
-		<div class="pure-controls">
-			<input type="submit" class="pure-button pure-button-primary" value="Save"/>
-			<a class="pure-button button-secondary" href="{$conf->action_root}productList">Back</a>
-		</div>
+	<div class="pure-controls">
+	    <input type="submit" class="pure-button pure-button-primary" value="Save"/>
+	    <a class="pure-button button-secondary" href="{$conf->action_root}productList">Back</a>
+	</div>
 	</fieldset>
 </form>	
 </div>
