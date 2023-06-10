@@ -6,14 +6,14 @@
 	<title>Computer's World</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="../assets/css/main.css" />
 </head>
 
-<body class="landing is-preload">
+<body class="is-preload">
 	<div id="page-wrapper">
 
 		<!-- Header -->
-		<header id="header" class="alt">
+		<header id="header">
 			<h1><a href="index.php">Computer's World</a></h1>
 			<nav id="nav">
 				<ul>
@@ -73,7 +73,8 @@
 
 			{/block}
 
-
+			{block name=list}
+			{/block}
 			<!-- CTA -->
 			<section id="cta">
 
