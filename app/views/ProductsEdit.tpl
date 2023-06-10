@@ -26,6 +26,14 @@
             <label for="price">price</label>
             <input id="price" type="text" placeholder="price" name="Price" value="{$form->Price}">
         </div>
+        <div class="pure-control-group">
+            <label for="availability">availability</label>
+            <input id="availability" type="text" placeholder="availability" name="Availability" value="{$form->Availability}">
+        </div>
+        <div class="pure-control-group">
+            <label for="description">price</label>
+            <input id="description" type="text" placeholder="description" name="Description" value="{$form->Description}">
+        </div>
 		<div class="pure-controls">
 			<input type="submit" class="pure-button pure-button-primary" value="Save"/>
 			<a class="pure-button button-secondary" href="{$conf->action_root}productList">Back</a>
