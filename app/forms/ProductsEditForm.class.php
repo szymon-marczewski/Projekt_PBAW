@@ -4,10 +4,10 @@ namespace app\forms;
 
 class ProductsEditForm {
 	public $idProduct;
-	// public $Manufacturer;
+	public $Manufacturer;
 	public $Model;
 	public $Type;
 	public $Price;
-	// public $Availabilty;
-	// public $Description;
+	public $Availability;
+	public $Description;
 }
