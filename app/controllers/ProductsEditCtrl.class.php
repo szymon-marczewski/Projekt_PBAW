@@ -69,9 +69,12 @@ class ProductsEditCtrl {
                 ]);
                 // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
                 $this->form->idProduct = $record['idProduct'];
+                $this->form->Manufacturer = $record['Manufacturer'];
                 $this->form->Model = $record['Model'];
                 $this->form->Type = $record['Type'];
                 $this->form->Price = $record['Price'];
+                $this->form->Availability = $record['Availability'];
+                $this->form->Description = $record['Description'];
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
                 if (App::getConf()->debug)
@@ -117,9 +120,12 @@ class ProductsEditCtrl {
                     $count = App::getDB()->count("products");
                     if ($count <= 20) {
                         App::getDB()->insert("products", [
+                            "Manufacturer" => $this->form->Manufacturer,
                             "Model" => $this->form->Model,
                             "Type" => $this->form->Type,
-                            "Price" => $this->form->Price
+                            "Price" => $this->form->Price,
+                            "Availability" => $this->form->Availability,
+                            "Description" => $this->form->Description
                         ]);
                     } else { //za dużo rekordów
                         Utils::addInfoMessage('Ograniczenie: Zbyt dużo rekordów. Aby dodać nowy usuń wybrany wpis.');
@@ -129,9 +135,12 @@ class ProductsEditCtrl {
                 } else {
                     //2.2 Edycja rekordu o danym ID
                     App::getDB()->update("products", [
+                        "Manufacturer" => $this->form->Manufacturer,
                         "Model" => $this->form->Model,
                         "Type" => $this->form->Type,
-                        "Price" => $this->form->Price
+                        "Price" => $this->form->Price,
+                        "Availability" => $this->form->Availability,
+                        "Description" => $this->form->Description
                             ], [
                         "idProduct" => $this->form->idProduct
                     ]);
