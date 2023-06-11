@@ -50,6 +50,7 @@ class ProductsListCtrl {
                 "Model",
                 "Type",
                 "Price",
+                "Description"
                     ], $where);
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
