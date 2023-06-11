@@ -21,15 +21,23 @@ class ProductsEditCtrl {
     public function validateSave() {
         //0. Pobranie parametrów z walidacją
         $this->form->idProduct = ParamUtils::getFromRequest('idProduct', true, 'Błędne wywołanie aplikacji');
-        // $this->form->Manufacturer = ParamUtils::getFromRequest('Manufacturer', true, 'Błędne wywołanie aplikacji');
+        $this->form->Manufacturer = ParamUtils::getFromRequest('Manufacturer', true, 'Błędne wywołanie aplikacji');
         $this->form->Model = ParamUtils::getFromRequest('Model', true, 'Błędne wywołanie aplikacji');
         $this->form->Type = ParamUtils::getFromRequest('Type', true, 'Błędne wywołanie aplikacji');
         $this->form->Price = ParamUtils::getFromRequest('Price', true, 'Błędne wywołanie aplikacji');
+        $this->form->Availability = ParamUtils::getFromRequest('Availability', true, 'Błędne wywołanie aplikacji');
+        $this->form->Description = ParamUtils::getFromRequest('Description', true, 'Błędne wywołanie aplikacji');
 
         if (App::getMessages()->isError())
             return false;
 
         // 1. sprawdzenie czy wartości wymagane nie są puste
+        if (empty(trim($this->form->idProduct))) {
+            Utils::addErrorMessage('Wprowadź id');
+        }
+        if (empty(trim($this->form->Manufacturer))) {
+            Utils::addErrorMessage('Wprowadź producenta');
+        }
         if (empty(trim($this->form->Model))) {
             Utils::addErrorMessage('Wprowadź model');
         }
@@ -38,6 +46,9 @@ class ProductsEditCtrl {
         }
         if (empty(trim($this->form->Price))) {
             Utils::addErrorMessage('Wprowadź kwotę');
+        }
+        if (empty(trim($this->form->Availability))) {
+            Utils::addErrorMessage('Wprowadź czy produkt dostepny');
         }
 
         if (App::getMessages()->isError())
