@@ -47,7 +47,7 @@ class ProductsEditCtrl {
         if (empty(trim($this->form->Price))) {
             Utils::addErrorMessage('Wprowadź kwotę');
         }
-        if (empty(trim($this->form->Availability))) {
+        if (is_null($this->form->Availability)) {
             Utils::addErrorMessage('Wprowadź czy produkt dostepny');
         }
 
@@ -79,7 +79,6 @@ class ProductsEditCtrl {
                     "idProduct" => $this->form->idProduct
                 ]);
                 // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
-                $this->form->idProduct = $record['idProduct'];
                 $this->form->Manufacturer = $record['Manufacturer'];
                 $this->form->Model = $record['Model'];
                 $this->form->Type = $record['Type'];
@@ -126,11 +125,12 @@ class ProductsEditCtrl {
             try {
 
                 //2.1 Nowy rekord
-                if ($this->form->idProduct == '') {
+                if ($this->form->idProduct > App::getDB()->count("products")) {
                     //sprawdź liczebność rekordów - nie pozwalaj przekroczyć 20
                     $count = App::getDB()->count("products");
                     if ($count <= 20) {
                         App::getDB()->insert("products", [
+                            "idProduct" => $this->form->idProduct,
                             "Manufacturer" => $this->form->Manufacturer,
                             "Model" => $this->form->Model,
                             "Type" => $this->form->Type,
