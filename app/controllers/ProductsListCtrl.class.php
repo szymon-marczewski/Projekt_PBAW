@@ -40,7 +40,7 @@ class ProductsListCtrl {
             $where = &$search_params;
         }
         //dodanie frazy sortującej po nazwisku
-        $where ["ORDER"] = "Manufacturer";
+        $where ["ORDER"] = "idProduct";
         //wykonanie zapytania
 
         try {
