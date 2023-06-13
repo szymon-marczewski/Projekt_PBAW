@@ -32,7 +32,7 @@ class ProductsEditCtrl {
             return false;
 
         // 1. sprawdzenie czy wartości wymagane nie są puste
-        if (empty(trim($this->form->idProduct))) {
+        if (($this->form->idProduct)<0 || $this->form->idProduct == 'null') {
             Utils::addErrorMessage('Wprowadź id');
         }
         if (empty(trim($this->form->Manufacturer))) {
@@ -103,7 +103,7 @@ class ProductsEditCtrl {
             try {
                 // 2. usunięcie rekordu
                 App::getDB()->delete("products", [
-                    "idproduct" => $this->form->idProduct
+                    "idProduct" => $this->form->idProduct
                 ]);
                 Utils::addInfoMessage('Pomyślnie usunięto rekord');
             } catch (\PDOException $e) {
@@ -114,6 +114,7 @@ class ProductsEditCtrl {
         }
 
         // 3. Przekierowanie na stronę listy osób
+        $this->generateView();
         App::getRouter()->forwardTo('productList');
     }
 
