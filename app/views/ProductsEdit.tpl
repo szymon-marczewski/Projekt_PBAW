@@ -2,8 +2,7 @@
 
 {block name=top}
 
-<div class="bottom-margin">
-<form action="{$conf->action_root}productSave" method="post" class="pure-form pure-form-aligned">
+<form action="{$conf->action_root}productSave" method="post"class="pure-form pure-form-aligned bottom-margin">
 	<fieldset>
 		<legend>New product</legend>
 		<div class="pure-control-group">
@@ -31,15 +30,14 @@
             <input id="availability" type="text" placeholder="availability" name="Availability" value="{$form->Availability}">
         </div>
         <div class="pure-control-group">
-            <label for="description">price</label>
+            <label for="description">description</label>
             <input id="description" type="text" placeholder="description" name="Description" value="{$form->Description}">
         </div>
-	<div class="pure-controls">
-	    <input type="submit" class="pure-button pure-button-primary" value="Save"/>
-	    <a class="pure-button button-secondary" href="{$conf->action_root}productList">Back</a>
-	</div>
+		<div class="pure-controls">
+			<input type="submit" class="pure-button pure-button-primary" value="Save"/>
+			<a class="pure-button button-secondary" href="{$conf->action_root}productList">Back</a>
+		</div>
 	</fieldset>
 </form>	
-</div>
 
 {/block}

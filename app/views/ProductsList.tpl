@@ -1,7 +1,7 @@
 {extends file="main.tpl"}
 
 {block name=top}
-
+<br>
 <div class="bottom-margin">
 <form class="pure-form pure-form-stacked" action="{$conf->action_url}productList">
 	<legend>Search</legend>
@@ -15,7 +15,6 @@
 {/block}
 
 {block name=list}
-
 <div class="bottom-margin">
 <a class="pure-button button-success" href="{$conf->action_root}productNew">+ New product</a>
 </div>	
@@ -28,6 +27,7 @@
 		<th>Model</th>
 		<th>Type</th>
 		<th>Price</th>
+		<th>Description</th>
 	</tr>
 </thead>
 <tbody>
@@ -39,6 +39,7 @@
 		<td>{$p["Model"]}</td>
 		<td>{$p["Type"]}</td>
 		<td>{$p["Price"]}</td>
+		<td>{$p["Description"]}</td>
 		<td>
 			<a class="button-small pure-button button-secondary" href="{$conf->action_url}productEdit/{$p['idProduct']}">Edit</a>
 			&nbsp;
