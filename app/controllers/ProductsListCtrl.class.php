@@ -41,7 +41,6 @@ class ProductsListCtrl {
         }
         //dodanie frazy sortującej po nazwisku
         $where ["ORDER"] = "idProduct";
-        $where ["LIKE"] != '0';
         //wykonanie zapytania
 
         try {
@@ -52,7 +51,7 @@ class ProductsListCtrl {
                 "Type",
                 "Price",
                 "Description"
-                    ], $where);
+                    ], ["availability[=]" => 1], $where);
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)
