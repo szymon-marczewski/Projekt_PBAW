@@ -13,4 +13,5 @@ Utils::addRoute('logout',        'LoginCtrl');
 Utils::addRoute('productNew',    'ProductsEditCtrl',	['admin']);
 Utils::addRoute('productEdit',   'ProductsEditCtrl',	['admin']);
 Utils::addRoute('productSave',   'ProductsEditCtrl',	['admin']);
+Utils::addRoute('productDelete', 'ProductsEditCtrl',	['admin']);
 Utils::addRoute('productBuy',    'ProductsEditCtrl',	['user','admin']);
