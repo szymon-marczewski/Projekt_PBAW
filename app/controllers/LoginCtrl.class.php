@@ -13,7 +13,6 @@ class LoginCtrl {
     private $form;
 
     public function __construct() {
-        //stworzenie potrzebnych obiektów
         $this->form = new LoginForm();
     }
 
@@ -24,8 +23,7 @@ class LoginCtrl {
 
         if (!isset($this->form->login))
             return false;
-        
-         //insert do bazy danych +sprawdzanie czy już nie występuje
+
         
         if (empty($this->form->login)) {
             Utils::addErrorMessage('Nie podano loginu');
@@ -47,7 +45,6 @@ class LoginCtrl {
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         }
-        //insert do bazy danych
         return !App::getMessages()->isError();
     }
 
@@ -70,7 +67,7 @@ class LoginCtrl {
     }
 
     public function generateView() {
-        App::getSmarty()->assign('form', $this->form); // dane formularza do widoku
+        App::getSmarty()->assign('form', $this->form); 
         App::getSmarty()->display('LoginView.tpl');
     }
 

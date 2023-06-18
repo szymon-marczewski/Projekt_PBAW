@@ -9,8 +9,8 @@ use app\forms\ProductsSearchForm;
 
 class ProductsListCtrl {
 
-    private $form; //dane formularza wyszukiwania
-    private $records; //rekordy pobrane z bazy danych
+    private $form; 
+    private $records; 
 
     public function __construct() {
 
@@ -28,9 +28,9 @@ class ProductsListCtrl {
 
         $this->validate();
 
-        $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
+        $search_params = []; 
         if (isset($this->form->Manufacturer) && strlen($this->form->Manufacturer) > 0) {
-            $search_params['Manufacturer[~]'] = $this->form->Manufacturer . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+            $search_params['Manufacturer[~]'] = $this->form->Manufacturer . '%'; 
         }
 
         $num_params = sizeof($search_params);
@@ -39,10 +39,9 @@ class ProductsListCtrl {
         } else {
             $where = &$search_params;
         }
-        //dodanie frazy sortującej po nazwisku
+
         $where ["ORDER"] = "idProduct";
-        $where ["LIKE"] != '0';
-        //wykonanie zapytania
+
 
         try {
             $this->records = App::getDB()->select("products", [
@@ -60,8 +59,8 @@ class ProductsListCtrl {
         }
 
         // 4. wygeneruj widok
-        App::getSmarty()->assign('searchForm', $this->form); // dane formularza (wyszukiwania w tym wypadku)
-        App::getSmarty()->assign('prod', $this->records);  // lista rekordów z bazy danych
+        App::getSmarty()->assign('searchForm', $this->form); 
+        App::getSmarty()->assign('prod', $this->records);  
         App::getSmarty()->display('ProductsList.tpl');
     }
 
