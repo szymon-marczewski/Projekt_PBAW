@@ -114,7 +114,6 @@ class ProductsEditCtrl {
         }
 
         // 3. Przekierowanie na stronę listy osób
-        $this->generateView();
         App::getRouter()->forwardTo('productList');
     }
 

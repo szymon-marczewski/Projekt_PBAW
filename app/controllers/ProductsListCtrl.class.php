@@ -41,6 +41,7 @@ class ProductsListCtrl {
         }
         //dodanie frazy sortującej po nazwisku
         $where ["ORDER"] = "idProduct";
+        $where ["LIKE"] != '0';
         //wykonanie zapytania
 
         try {

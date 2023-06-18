@@ -24,7 +24,9 @@ class LoginCtrl {
 
         if (!isset($this->form->login))
             return false;
-
+        
+         //insert do bazy danych +sprawdzanie czy już nie występuje
+        
         if (empty($this->form->login)) {
             Utils::addErrorMessage('Nie podano loginu');
         }
@@ -45,7 +47,7 @@ class LoginCtrl {
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         }
-
+        //insert do bazy danych
         return !App::getMessages()->isError();
     }
 
