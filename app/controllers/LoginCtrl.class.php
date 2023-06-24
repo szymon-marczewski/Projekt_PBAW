@@ -41,6 +41,15 @@ class LoginCtrl {
         if ($this->form->login == "admin" && $this->form->pass == "admin") {
             RoleUtils::addRole('admin');
         } else if ($this->form->login != "admin" && $this->form->pass != "admin") {
+            $x = App::getDB()->count("users");
+
+            App::getDB()->insert("users", [
+                "idUser" => $x++,
+                "Username" => $this->form->login,
+                "Email" => $this->form->email,
+                "Password" => $this->form->pass,
+                "Role_name" => "User",
+            ]);
             RoleUtils::addRole('user');
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
