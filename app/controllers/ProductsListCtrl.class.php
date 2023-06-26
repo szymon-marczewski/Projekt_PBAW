@@ -30,7 +30,7 @@ class ProductsListCtrl {
 
         $search_params = []; 
         if (isset($this->form->Manufacturer) && strlen($this->form->Manufacturer) > 0) {
-            $search_params['Manufacturer[~]'] = $this->form->Manufacturer . '%'; 
+            $search_params['Manufacturer[~]'] = $this->form->Manufacturer.'%'; 
         }
 
         $num_params = sizeof($search_params);
@@ -40,9 +40,6 @@ class ProductsListCtrl {
             $where = &$search_params;
         }
 
-        $where ["ORDER"] = "idProduct";
-
-
         try {
             $this->records = App::getDB()->select("products", [
                 "idProduct",
@@ -51,7 +48,10 @@ class ProductsListCtrl {
                 "Type",
                 "Price",
                 "Description"
-                    ], ["availability[=]" => 1], $where);
+                    ], $where);
+// "availability[=]" => 1]
+//, "Manufacturer" => $where]
+//["AND" => ['availability[=]' => "1", "AND" => $where]], $where
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)
