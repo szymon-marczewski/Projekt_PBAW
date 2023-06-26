@@ -19,15 +19,15 @@ class OrdersListCtrl {
 
     public function loginOrder() {
 
-        $this->form->login = ParamUtils::getFromGet('login');
-        return !App::getMessages()->isError();
+        // $this->form->login = ParamUtils::getFromGet('login');
+        // return !App::getMessages()->isError();
     }
 
-    public function action_productOrder() {
+    public function action_ordersList() {
 
-        $this->loginOrder();
+        // $this->loginOrder();
 
-        $where ["ORDER"] = "orders.Date";
+        // $where ["ORDER"] = "orders.Date";
 
         try {
             $this->records = App::getDB()->select("transactions", [
@@ -40,7 +40,7 @@ class OrdersListCtrl {
                 "products.Price",
                 "orders.Date",
                 "orders.Status"
-                    ], $where);
+                    ]);
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)
