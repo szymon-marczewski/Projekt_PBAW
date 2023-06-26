@@ -1,27 +1,18 @@
 {extends file="main.tpl"}
-
 {block name=top}
-<div class="bottom-margin">
-<form class="pure-form pure-form-stacked" action="{$conf->action_url}productList">
-	<legend>Search</legend>
-	<fieldset>
-		<input type="text" placeholder="manufacturer" name="sf_Manufacturer" value="{$searchForm->Manufacturer}" /><br />
-		<button type="submit" class="pure-button pure-button-primary">Search</button>
-	</fieldset>
-</form>
-</div>	
-
+<br>
 {/block}
-
 {block name=list}
 <b>Your orders:</b>
 <table id="tab_products" class="pure-table pure-table-bordered">
 <thead>
 	<tr>
 		<th>idOrder</th>
+		<th>Manufacturer</th>
+		<th>Model</th>
+		<th>Price</th>
 		<th>Date</th>
 		<th>Status</th>
-		<th>Description</th>
 	</tr>
 </thead>
 <tbody>
@@ -29,9 +20,11 @@
 {strip}
 	<tr>
 		<td>{$o["idOrder"]}</td>
+		<td>{$o["Manufacturer"]}</td>
+		<td>{$o["Model"]}</td>
+		<td>{$o["Price"]}</td>
 		<td>{$o["Date"]}</td>
 		<td>{$o["Status"]}</td>
-		<td>{$o["Description"]}</td>
 	</tr>
 {/strip}
 {/foreach}
