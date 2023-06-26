@@ -42,7 +42,9 @@ class LoginCtrl {
             RoleUtils::addRole('admin');
         } else if ($this->form->login != "admin" && $this->form->pass != "admin") {
             $x = App::getDB()->count("users");
-
+            
+            if(App::getDB()->count("users", ["Username" => $this->form->login]) < 1 && App::getDB()->count("users", ["Email" => $this->form->email]) < 1)
+            {
             App::getDB()->insert("users", [
                 "idUser" => $x++,
                 "Username" => $this->form->login,
@@ -51,6 +53,11 @@ class LoginCtrl {
                 "Role_name" => "User",
             ]);
             RoleUtils::addRole('user');
+            } else {
+                Utils::addErrorMessage('User or email is already existing');
+            }
+            return !App::getMessages()->isError();
+
         } else {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         }
@@ -79,4 +86,5 @@ class LoginCtrl {
         App::getSmarty()->assign('form', $this->form); 
         App::getSmarty()->display('LoginView.tpl');
     }
+
 }
