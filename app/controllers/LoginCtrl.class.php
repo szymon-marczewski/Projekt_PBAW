@@ -86,5 +86,4 @@ class LoginCtrl {
         App::getSmarty()->assign('form', $this->form); 
         App::getSmarty()->display('LoginView.tpl');
     }
-
 }
