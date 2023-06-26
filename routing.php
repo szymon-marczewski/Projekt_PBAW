@@ -7,6 +7,7 @@ App::getRouter()->setDefaultRoute('productList'); // akcja/ścieżka domyślna
 App::getRouter()->setLoginRoute('login'); // akcja/ścieżka na potrzeby logowania (przekierowanie, gdy nie ma dostępu)
 
 Utils::addRoute('productList',   'ProductsListCtrl');
+Utils::addRoute('ordersList',    'OrdersListCtrl');
 Utils::addRoute('loginShow',     'LoginCtrl');
 Utils::addRoute('login',         'LoginCtrl');
 Utils::addRoute('logout',        'LoginCtrl');
