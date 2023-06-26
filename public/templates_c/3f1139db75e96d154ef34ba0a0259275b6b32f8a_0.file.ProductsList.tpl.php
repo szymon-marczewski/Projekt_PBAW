@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-06-17 16:38:59
+/* Smarty version 4.3.1, created on 2023-06-26 12:30:35
   from 'C:\xampp\htdocs\projekt\app\views\ProductsList.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_648dc583c80b50_60329212',
+  'unifunc' => 'content_649968cb351527_38311961',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3f1139db75e96d154ef34ba0a0259275b6b32f8a' => 
     array (
       0 => 'C:\\xampp\\htdocs\\projekt\\app\\views\\ProductsList.tpl',
-      1 => 1687012734,
+      1 => 1687775423,
       2 => 'file',
     ),
   ),
@@ -20,36 +20,35 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_648dc583c80b50_60329212 (Smarty_Internal_Template $_smarty_tpl) {
+function content_649968cb351527_38311961 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1151659444648dc583c699e1_38176708', 'top');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_923617690649968cb33d6e8_92406552', 'top');
 ?>
 
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_192893265648dc583c6eb97_92270487', 'list');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_350876494649968cb342db5_34669171', 'list');
 ?>
 
 <?php $_smarty_tpl->inheritance->endChild($_smarty_tpl, "main.tpl");
 }
 /* {block 'top'} */
-class Block_1151659444648dc583c699e1_38176708 extends Smarty_Internal_Block
+class Block_923617690649968cb33d6e8_92406552 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'top' => 
   array (
-    0 => 'Block_1151659444648dc583c699e1_38176708',
+    0 => 'Block_923617690649968cb33d6e8_92406552',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
-<br>
 <div class="bottom-margin">
 <form class="pure-form pure-form-stacked" action="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
 productList">
@@ -67,12 +66,12 @@ productList">
 }
 /* {/block 'top'} */
 /* {block 'list'} */
-class Block_192893265648dc583c6eb97_92270487 extends Smarty_Internal_Block
+class Block_350876494649968cb342db5_34669171 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'list' => 
   array (
-    0 => 'Block_192893265648dc583c6eb97_92270487',
+    0 => 'Block_350876494649968cb342db5_34669171',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
@@ -82,7 +81,8 @@ public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 <a class="pure-button button-success" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_root;?>
 productNew">+ New product</a>
 </div>	
-
+<br>
+<b>Available products:</b>
 <table id="tab_products" class="pure-table pure-table-bordered">
 <thead>
 	<tr>
@@ -109,9 +109,11 @@ $_smarty_tpl->tpl_vars['p']->do_else = false;
 </td><td><?php echo $_smarty_tpl->tpl_vars['p']->value["Description"];?>
 </td><td><a class="button-small pure-button button-secondary" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
 productEdit/<?php echo $_smarty_tpl->tpl_vars['p']->value['idProduct'];?>
-">Edit</a>&nbsp;<a class="button-small pure-button button-warning" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
+">Edit  </a><a class="button-small pure-button button-warning" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
 productDelete/<?php echo $_smarty_tpl->tpl_vars['p']->value['idProduct'];?>
-">Delete</a></td></tr>
+">Delete  </a><a class="button-small pure-button" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->action_url;?>
+productBuy/<?php echo $_smarty_tpl->tpl_vars['p']->value['idProduct'];?>
+">Buy</a></td></tr>
 <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
