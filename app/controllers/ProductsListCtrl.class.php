@@ -6,6 +6,7 @@ use core\App;
 use core\Utils;
 use core\ParamUtils;
 use app\forms\ProductsSearchForm;
+use app\controllers\LoginCtrl;
 
 class ProductsListCtrl {
 
@@ -39,7 +40,8 @@ class ProductsListCtrl {
         } else {
             $where = &$search_params;
         }
-
+        $where ["LIMIT"] = 20;
+        $where ["AND"] = ["Availability[=]" => 1];
         try {
             $this->records = App::getDB()->select("products", [
                 "idProduct",
@@ -47,11 +49,9 @@ class ProductsListCtrl {
                 "Model",
                 "Type",
                 "Price",
-                "Description"
-                    ], $where);
-// "availability[=]" => 1]
-//, "Manufacturer" => $where]
-//["AND" => ['availability[=]' => "1", "AND" => $where]], $where
+                "Description",
+            ], $where);
+            
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)
