@@ -6,7 +6,6 @@ use core\App;
 use core\Utils;
 use core\ParamUtils;
 use app\forms\ProductsSearchForm;
-use app\controllers\LoginCtrl;
 
 class ProductsListCtrl {
 
@@ -40,7 +39,7 @@ class ProductsListCtrl {
         } else {
             $where = &$search_params;
         }
-        $where ["LIMIT"] = 20;
+        $where ["LIMIT"] = 50;
         $where ["AND"] = ["Availability[=]" => 1];
         try {
             $this->records = App::getDB()->select("products", [
