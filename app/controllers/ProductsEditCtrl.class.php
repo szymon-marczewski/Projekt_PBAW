@@ -10,7 +10,8 @@ use app\forms\ProductsEditForm;
 
 class ProductsEditCtrl {
 
-    private $form; 
+    private $form;
+    private $records;
 
     public function __construct() {
         
@@ -31,22 +32,22 @@ class ProductsEditCtrl {
             return false;
 
         if (($this->form->idProduct)<0 || $this->form->idProduct == 'null') {
-            Utils::addErrorMessage('Wprowadź id');
+            Utils::addErrorMessage('Enter id');
         }
         if (empty(trim($this->form->Manufacturer))) {
-            Utils::addErrorMessage('Wprowadź producenta');
+            Utils::addErrorMessage('Enter manufacturer');
         }
         if (empty(trim($this->form->Model))) {
-            Utils::addErrorMessage('Wprowadź model');
+            Utils::addErrorMessage('Enter model');
         }
         if (empty(trim($this->form->Type))) {
-            Utils::addErrorMessage('Wprowadź typ produktu');
+            Utils::addErrorMessage('Enter product type');
         }
         if (empty(trim($this->form->Price))) {
-            Utils::addErrorMessage('Wprowadź kwotę');
+            Utils::addErrorMessage('Enter price');
         }
         if (is_null($this->form->Availability)) {
-            Utils::addErrorMessage('Wprowadź czy produkt dostepny');
+            Utils::addErrorMessage('Enter availability (0/1)');
         }
 
         if (App::getMessages()->isError())
@@ -57,7 +58,7 @@ class ProductsEditCtrl {
 
 
     public function validateEdit() {
-        $this->form->idProduct = ParamUtils::getFromCleanURL(1, true, 'Błędne wywołanie aplikacji');
+        $this->form->idProduct = ParamUtils::getFromCleanURL(1, true, 'Application error');
         return !App::getMessages()->isError();
     }
 
@@ -78,7 +79,7 @@ class ProductsEditCtrl {
                 $this->form->Availability = $record['Availability'];
                 $this->form->Description = $record['Description'];
             } catch (\PDOException $e) {
-                Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
+                Utils::addErrorMessage('Error when reading records');
                 if (App::getConf()->debug)
                     Utils::addErrorMessage($e->getMessage());
             }
@@ -94,9 +95,9 @@ class ProductsEditCtrl {
                 App::getDB()->delete("products", [
                     "idProduct" => $this->form->idProduct
                 ]);
-                Utils::addInfoMessage('Pomyślnie usunięto rekord');
+                Utils::addInfoMessage('Database record deleted');
             } catch (\PDOException $e) {
-                Utils::addErrorMessage('Wystąpił błąd podczas usuwania rekordu');
+                Utils::addErrorMessage('Error when deleting record');
                 if (App::getConf()->debug)
                     Utils::addErrorMessage($e->getMessage());
             }
@@ -111,22 +112,17 @@ class ProductsEditCtrl {
             try {
 
                 if ($this->form->idProduct > App::getDB()->count("products")) {
-                    $count = App::getDB()->count("products");
-                    if ($count <= 20) {
-                        App::getDB()->insert("products", [
-                            "idProduct" => $this->form->idProduct,
-                            "Manufacturer" => $this->form->Manufacturer,
-                            "Model" => $this->form->Model,
-                            "Type" => $this->form->Type,
-                            "Price" => $this->form->Price,
-                            "Availability" => $this->form->Availability,
-                            "Description" => $this->form->Description
-                        ]);
-                    } else { 
-                        Utils::addInfoMessage('Ograniczenie: Zbyt dużo rekordów. Aby dodać nowy usuń wybrany wpis.');
-                        $this->generateView(); 
-                        exit(); 
-                    }
+
+                    App::getDB()->insert("products", [
+                        "idProduct" => $this->form->idProduct,
+                        "Manufacturer" => $this->form->Manufacturer,
+                        "Model" => $this->form->Model,
+                        "Type" => $this->form->Type,
+                        "Price" => $this->form->Price,
+                        "Availability" => $this->form->Availability,
+                        "Description" => $this->form->Description
+                    ]);
+
                 } else {
                     App::getDB()->update("products", [
                         "Manufacturer" => $this->form->Manufacturer,
@@ -139,9 +135,9 @@ class ProductsEditCtrl {
                         "idProduct" => $this->form->idProduct
                     ]);
                 }
-                Utils::addInfoMessage('Pomyślnie zapisano rekord');
+                Utils::addInfoMessage('Product added successfully');
             } catch (\PDOException $e) {
-                Utils::addErrorMessage('Wystąpił nieoczekiwany błąd podczas zapisu rekordu');
+                Utils::addErrorMessage('Something went wrong');
                 if (App::getConf()->debug)
                     Utils::addErrorMessage($e->getMessage());
             }
@@ -150,6 +146,47 @@ class ProductsEditCtrl {
         } else {
             $this->generateView();
         }
+    }
+
+    public function action_productBuy(){
+        // if pod sprawdzanie powtórzeń kupna tego samego
+        $UserID = App::getDB()->get("users","idUser",["Active[=]" => 1]);
+        $OrdersCount = App::getDB()->count("orders");
+        $OrdersCount++;
+        $TransactionID = App::getDB()->count("transactions");
+        $TransactionID++;
+        // $prodPrice = App::getDB()->select("products","Price", ["idProduct[=]" => $this->form->idProduct ]);
+
+        if($this->validateEdit())
+        {
+            //tu if chyba
+            try {
+                App::getDB()->insert("orders", [
+                    "idOrder" => $OrdersCount,
+                    "idUser" => $UserID,
+                    "Date" => date("Y-m-d"),
+                    "Status" => 0,
+                    "Description" => "Waiting"
+                ]);
+
+                App::getDB()->insert("transactions",
+                    [
+                    "idTransaction" => $TransactionID,
+                    "idProduct" => $this->form->idProduct,
+                    "idOrder" => $OrdersCount,
+                    "Amount" => 1,
+                    // "Total_price" =>  $prodPrice
+                ]);
+                Utils::addInfoMessage('Added');
+                }
+                catch (\PDOException $e) {
+                    Utils::addErrorMessage('Something went wrong');
+                    if (App::getConf()->debug)
+                        Utils::addErrorMessage($e->getMessage());
+                }
+            App::getRouter()->redirectTo("OrdersList");
+        }
+        
     }
 
     public function generateView() {
