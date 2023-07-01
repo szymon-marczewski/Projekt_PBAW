@@ -26,24 +26,50 @@ class LoginCtrl {
 
         
         if (empty($this->form->login)) {
-            Utils::addErrorMessage('Nie podano loginu');
+            Utils::addErrorMessage('No login provided');
         }
+
+        if (strlen($this->form->login)<5) {
+            Utils::addErrorMessage('Username is too short');
+        }
+
         if (empty($this->form->email)) {
-            Utils::addErrorMessage('Nie podano emaila');
+            Utils::addErrorMessage('No email provided');
         }
+
+        if (!filter_var($this->form->email, FILTER_VALIDATE_EMAIL))
+        {
+            Utils::addErrorMessage('Wrong email format');
+        }
+
         if (empty($this->form->pass)) {
-            Utils::addErrorMessage('Nie podano hasła');
+            Utils::addErrorMessage('No password provided');
+        }
+
+        if (strlen($this->form->pass)<5) {
+            Utils::addErrorMessage('Password is too short');
         }
 
         if (App::getMessages()->isError())
             return false;
 
-        if ($this->form->login == "admin" && $this->form->pass == "admin") {
+        $x = App::getDB()->count("users");
+        $active = 1;
+
+        App::getDB()->update("users", [
+            "Active" => 0
+        ],["idUser[<]" => $x]); 
+
+        if ($this->form->login == "admin" && $this->form->pass == "admin") { 
+            App::getDB()->update("users", [
+                "Active" => 1
+            ],["Username" => $this->form->login]); 
             RoleUtils::addRole('admin');
+            return !App::getMessages()->isError();
+
         } else if ($this->form->login != "admin" && $this->form->pass != "admin") {
-            $x = App::getDB()->count("users");
             
-            if(App::getDB()->count("users", ["Username" => $this->form->login]) < 1 && App::getDB()->count("users", ["Email" => $this->form->email]) < 1)
+            if(App::getDB()->count("users", ["Username" => $this->form->login]) == 0 && App::getDB()->count("users", ["Email" => $this->form->email]) == 0)
             {
             App::getDB()->insert("users", [
                 "idUser" => $x++,
@@ -51,27 +77,32 @@ class LoginCtrl {
                 "Email" => $this->form->email,
                 "Password" => $this->form->pass,
                 "Role_name" => "User",
+                "Active" => $active
             ]);
             RoleUtils::addRole('user');
 
-            } else if(App::getDB()->count("users", ["Username" => $this->form->login]) == 1 && App::getDB()->count("users", ["Email" => $this->form->email]) == 1)
+            } else if(App::getDB()->count("users", ["Username" => $this->form->login]) == 1)
             {
-                if( App::getDB()->count("users", ["Password" => $this->form->pass]) == 1){
-                RoleUtils::addRole('user');
+                $user = App::getDB()-> get("users", "idUser", ["Username" => $this->form->login]);
+                $email = App::getDB()-> get("users", "idUser", ["Email" => $this->form->email]);
+                $passwd = App::getDB()-> get("users", "idUser", ["Password" => $this->form->pass]);
+                if(($user == $email) && ($user == $passwd)){ //?
+
+                    App::getDB()->update("users", [
+                        "Active" => $active
+                    ],["Username" => $this->form->login]); 
+                    RoleUtils::addRole('user');
                 } else {
-                    Utils::addErrorMessage('Wrong password');
+                    Utils::addErrorMessage('Email or login already in use');
                 }
 
 
             } else {
-                Utils::addErrorMessage('User or email already exist');
+                Utils::addErrorMessage('Something went wrong');
             }
             return !App::getMessages()->isError();
 
-        } else {
-            Utils::addErrorMessage('Wrong login or email');
         }
-        return !App::getMessages()->isError();
     }
 
     public function action_loginShow() {
@@ -80,7 +111,7 @@ class LoginCtrl {
 
     public function action_login() {
         if ($this->validate()) {
-            Utils::addErrorMessage('Poprawnie zalogowano do systemu');
+            Utils::addInfoMessage('Logged successfully');
             App::getRouter()->redirectTo("productList");
         } else {
             $this->generateView();
