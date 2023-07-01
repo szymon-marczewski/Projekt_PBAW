@@ -10,9 +10,13 @@
 		<th>idOrder</th>
 		<th>Manufacturer</th>
 		<th>Model</th>
+		<th>Type</th>
 		<th>Price</th>
+		<th>Amount</th>
+		<!-- <th>Total_price</th> -->
 		<th>Date</th>
 		<th>Status</th>
+		<th>Description</th>
 	</tr>
 </thead>
 <tbody>
@@ -22,13 +26,16 @@
 		<td>{$o["idOrder"]}</td>
 		<td>{$o["Manufacturer"]}</td>
 		<td>{$o["Model"]}</td>
+		<td>{$o["Type"]}</td>
 		<td>{$o["Price"]}</td>
+		<td>{$o["Amount"]}</td>
+		<!-- <td>{$o["Total_price"]}</td> -->
 		<td>{$o["Date"]}</td>
 		<td>{$o["Status"]}</td>
+		<td>{$o["Description"]}</td>
 	</tr>
 {/strip}
 {/foreach}
 </tbody>
 </table>
-
 {/block}
