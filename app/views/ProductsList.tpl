@@ -5,7 +5,7 @@
 <form class="pure-form pure-form-stacked" action="{$conf->action_url}productList">
 	<legend>Search</legend>
 	<fieldset>
-		<input type="text" placeholder="manufacturer" name="sf_Manufacturer" value="{$searchForm->Manufacturer}" /><br />
+		<input type="text" placeholder="manufacturer" name="sf_Manufacturer" value="{$searchForm->Manufacturer}" />
 		<button type="submit" class="pure-button pure-button-primary">Search</button>
 	</fieldset>
 </form>
@@ -28,6 +28,7 @@
 		<th>Type</th>
 		<th>Price</th>
 		<th>Description</th>
+		<th>Options</th>
 	</tr>
 </thead>
 <tbody>
@@ -45,7 +46,7 @@
 			
 			<a class="button-small pure-button button-warning" href="{$conf->action_url}productDelete/{$p['idProduct']}">Delete  </a>
 			
-			<a class="button-small pure-button" href="{$conf->action_url}productBuy/{$p['idProduct']}">Buy</a>
+			<a class="button-small pure-button button-warning" href="{$conf->action_url}productBuy/{$p['idProduct']}">Buy</a>
 		</td>
 	</tr>
 {/strip}
