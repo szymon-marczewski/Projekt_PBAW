@@ -26,7 +26,7 @@
 		<th>Manufacturer</th>
 		<th>Model</th>
 		<th>Type</th>
-		<th>Price</th>
+		<th>Price ($)</th>
 		<th>Description</th>
 		<th>Options</th>
 	</tr>
@@ -53,5 +53,7 @@
 {/foreach}
 </tbody>
 </table>
-
+{$page = 1}
+<a href="{$conf->action_url}productList/{$page}" class="button"> [<] </a>  <a href="{$conf->action_url}productList/{$page+1}" class="button"> [>] </a>
 {/block}
+
