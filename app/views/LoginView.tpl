@@ -10,16 +10,16 @@
 		</div>
 
         <div class="pure-control-group">
-			<label for="id_mail">login: </label>
-			<input id="id_mail" type="text" name="mail" value="{$form->mail}"/>
+			<label for="id_mail">mail: </label>
+			<input id="id_mail" type="text" name="email" value="{$form->email}"/>
 		</div>
 
         <div class="pure-control-group">
 			<label for="id_pass">pass: </label>
-			<input id="id_pass" type="password" name="pass" /><br />
+			<input id="id_pass" type="password" name="pass" value="{$form->pass}">
 		</div>
 		<div class="pure-controls">
-			<input type="submit" value="zaloguj" class="pure-button pure-button-primary"/>
+			<input type="submit" value="login" class="pure-button pure-button-primary"/>
 		</div>
 	</fieldset>
 </form>	
