@@ -96,14 +96,15 @@ class ProductsEditCtrl {
                     "idProduct" => $this->form->idProduct
                 ]);
                 Utils::addInfoMessage('Database record deleted');
+                App::getRouter()->forwardTo('productList');
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Error when deleting record');
                 if (App::getConf()->debug)
                     Utils::addErrorMessage($e->getMessage());
             }
+            App::getRouter()->forwardTo('productList');
         }
-
-        App::getRouter()->forwardTo('productList');
+     App::getRouter()->forwardTo('productList');
     }
 
     public function action_productSave() {
@@ -135,7 +136,7 @@ class ProductsEditCtrl {
                         "idProduct" => $this->form->idProduct
                     ]);
                 }
-                Utils::addInfoMessage('Product added successfully');
+                Utils::addInfoMessage('Product added/updated successfully');
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Something went wrong');
                 if (App::getConf()->debug)
@@ -149,17 +150,15 @@ class ProductsEditCtrl {
     }
 
     public function action_productBuy(){
-        // if pod sprawdzanie powtórzeń kupna tego samego
         $UserID = App::getDB()->get("users","idUser",["Active[=]" => 1]);
         $OrdersCount = App::getDB()->count("orders");
         $OrdersCount++;
         $TransactionID = App::getDB()->count("transactions");
         $TransactionID++;
-        // $prodPrice = App::getDB()->select("products","Price", ["idProduct[=]" => $this->form->idProduct ]);
 
         if($this->validateEdit())
         {
-            //tu if chyba
+
             try {
                 App::getDB()->insert("orders", [
                     "idOrder" => $OrdersCount,
@@ -175,7 +174,7 @@ class ProductsEditCtrl {
                     "idProduct" => $this->form->idProduct,
                     "idOrder" => $OrdersCount,
                     "Amount" => 1,
-                    // "Total_price" =>  $prodPrice
+
                 ]);
                 Utils::addInfoMessage('Added');
                 }
