@@ -55,11 +55,11 @@ class LoginCtrl {
 
         $x = App::getDB()->count("users");
         $active = 1;
-
+        //--------------------------------
         App::getDB()->update("users", [
             "Active" => 0
         ],["idUser[<]" => $x]); 
-
+        //--------------------------------
         if ($this->form->login == "admin" && $this->form->pass == "admin") { 
             App::getDB()->update("users", [
                 "Active" => 1
@@ -103,6 +103,10 @@ class LoginCtrl {
             return !App::getMessages()->isError();
 
         }
+        else{
+            Utils::addErrorMessage('Something went wrong');
+        }
+        return !App::getMessages()->isError();
     }
 
     public function action_loginShow() {
@@ -119,6 +123,9 @@ class LoginCtrl {
     }
 
     public function action_logout() {
+        App::getDB()->update("users", [
+            "Active" => 0
+        ]); 
         session_destroy();
         App::getRouter()->redirectTo('productList');
     }
