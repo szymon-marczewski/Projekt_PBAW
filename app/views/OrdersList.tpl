@@ -13,7 +13,6 @@
 		<th>Type</th>
 		<th>Price</th>
 		<th>Amount</th>
-		<!-- <th>Total_price</th> -->
 		<th>Date</th>
 		<th>Status</th>
 		<th>Description</th>
@@ -29,7 +28,6 @@
 		<td>{$o["Type"]}</td>
 		<td>{$o["Price"]}</td>
 		<td>{$o["Amount"]}</td>
-		<!-- <td>{$o["Total_price"]}</td> -->
 		<td>{$o["Date"]}</td>
 		<td>{$o["Status"]}</td>
 		<td>{$o["Description"]}</td>
