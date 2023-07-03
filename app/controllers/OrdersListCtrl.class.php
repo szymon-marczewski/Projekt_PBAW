@@ -16,7 +16,7 @@ class OrdersListCtrl {
     public function action_OrdersList() {
 
         $activeUser = App::getDB()->select("users", "idUser", ["Active[=]" => 1]);
-
+        if($activeUser == null) $activeUser = 1000 ;
         $where ["ORDER"] = "orders.idOrder";
         $where ["AND"] = ["orders.idUser[=]" => $activeUser];
 
@@ -31,7 +31,6 @@ class OrdersListCtrl {
                 "products.Price",
                 "products.Type",
                 "transactions.Amount",
-                // "transactions.Total_price",
                 "orders.Date",
                 "orders.Status",
                 "orders.Description"
