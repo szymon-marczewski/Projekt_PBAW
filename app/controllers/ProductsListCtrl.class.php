@@ -20,13 +20,12 @@ class ProductsListCtrl {
     public function validate() {
         
         $this->form->Manufacturer = ParamUtils::getFromRequest('sf_Manufacturer');
-
         return !App::getMessages()->isError();
     }
 
     public function action_productList() {
 
-        $this->validate();
+        $this -> validate();
 
         $search_params = []; 
         if (isset($this->form->Manufacturer) && strlen($this->form->Manufacturer) > 0) {
@@ -39,7 +38,13 @@ class ProductsListCtrl {
         } else {
             $where = &$search_params;
         }
-        $where ["LIMIT"] = 50;
+
+        $page = ParamUtils::getFromCleanURL(1, false);
+        if($page == null) $where ["LIMIT"] = [0,10];
+        if($page>0){
+            $where ["LIMIT"] = [($page*10)-10,10];
+        }
+
         $where ["AND"] = ["Availability[=]" => 1];
         try {
             $this->records = App::getDB()->select("products", [
@@ -52,7 +57,7 @@ class ProductsListCtrl {
             ], $where);
             
         } catch (\PDOException $e) {
-            Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
+            Utils::addErrorMessage('Error when selecting records');
             if (App::getConf()->debug)
                 Utils::addErrorMessage($e->getMessage());
         }
